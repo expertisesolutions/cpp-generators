@@ -214,7 +214,36 @@ a literal, as the sequence operator (`<<`) automatically converts following lite
 
 ### `a << b` - Sequence
 
-### `*(...)` - Kleene operator
+### `*(subgenerator)` - Kleene operator
+
+```cpp
+if (!as_generator(*("Name is :" << string << "\n")).generate(sink, list_of_names, context))
+    return true;
+```
+
+Consumes the given attribute (`list_of_names`) applying the given sub-generator expression
+for each element of it.
+
+### `(a % b)` - Interpolation operator
+
+```cpp
+if (!as_generator(string % ",").generate(sink, list_of_names, context))
+    return true;
+```
+
+Consumes the given attribute (`list_of_names`) applying the given sub-generator expression
+(left hand side of `%`) for each element and adding the separator (right hand side of `%`)
+between each generated item.
+
+### `counter(n)` - Counting numbers
+
+```cpp
+if (!as_generator(*(counter(first_number))).generate(sink, some_collection, context))
+    return true;
+```
+
+Generates a sequence of numbers starting with its parameter for each call of this generator.
+It is usually used together with the kleene (`*`) and interpolation operators.
 
 ### `attribute_reorder<int, int, ...>` - Attribute reorder
 
