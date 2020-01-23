@@ -99,7 +99,7 @@ struct scope_tab_generator
 {
     constexpr scope_tab_generator(int n) : n(n) {}
 
-    template<typename OutputIterator sink, attributes::unused_type, Context>
+    template<typename OutputIterator sink, typename Context>
     bool as_generator(OutputIterator sink, attributes::unused_type, Context const& context) const
     {
         return true;
