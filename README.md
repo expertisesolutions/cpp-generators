@@ -247,4 +247,20 @@ It is usually used together with the kleene (`*`) and interpolation operators.
 
 ### `attribute_reorder<int, int, ...>` - Attribute reorder
 
-### Attribute conditional
+**TODO (see #2)**
+
+### `attribute_conditional(f)` - Attribute conditional
+
+```cpp
+if (!as_generator(
+        (attribute_conditional(comparing_function) << "It is true")
+        | "It is false")
+   .generate(sink, some_bool_value, context)
+    return false;
+```
+
+Consumes `some_bool_value` and calls `comparing_function(some_bool_value)`. If
+it returns `true`, then the generation process continues, so "It is true" is
+generated. If it returns `false`, then generation stops - unless you
+concatenate it with `| another_generator`. In that case, `another_generator`
+will be used (generating "It is false").
